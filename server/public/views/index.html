@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="vendor/angular/angular.min.js"></script>
+    <script src="assets/client.js"></script>
+    <link href="views/style.css" rel="stylesheet" />
+  </head>
+  <body ng-controller="TwitterController">
+    <button ng-click="getAdjectives()">Generate</button>
+    <div>
+      <ul>
+        <li ng-repeat="handles in users">
+        <input type="checkbox" ng-model="handles.taken" />  <a target="_blank" ng-href="{{handles.url}}" ng-class="getClass(handles.taken)">{{handles.name}}</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
