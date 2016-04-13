@@ -14,6 +14,22 @@ https://twitter.com/users/username_available?username=whatever
     return str.replace(" ", "");
   };
 
+  $scope.getHandles = function() {
+    $http.get("/twitterhandles").then(function(res) {
+      console.log('got handles');
+      $scope.users = res.data;
+    });
+  }
+
+  $scope.postHandles = function() {
+    $scope.users.forEach(function(s) {
+    $http.post('/twitterhandles/new', s).then(function(res){
+      console.log('posted handle', s);
+    });
+    });
+      $scope.getHandles();
+
+  }
 
   $scope.getAdjectives = function() {
     $http.get("/adjectives").then(function(res) {
@@ -39,7 +55,7 @@ https://twitter.com/users/username_available?username=whatever
     console.log($scope.nouns, $scope.adjectives );
     for(var i=0; i <10; i++) {
       var handleName = removeSpace($scope.adjectives[i]) + removeSpace($scope.nouns[i]);
-      $scope.users.push({name: handleName, url: "https://www.twitter.com/" + handleName, taken: null})
+      $scope.users.push({name: handleName, url: "https://www.twitter.com/" + handleName, taken: false})
 
     }
     console.log($scope.users);
@@ -51,6 +67,9 @@ https://twitter.com/users/username_available?username=whatever
     } else {
       return "false"
     }
+
   }
+
+  $scope.getHandles();
 
 }])
